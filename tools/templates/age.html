@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Age Calculator{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: linear-gradient(rgba(79,70,229,.92), rgba(79,70,229,.97)), 
+            url('https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; 
+            min-height: 100vh;">
+  
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7 col-sm-10">
+
+      <!-- Age Calculator Card -->
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-birthday-cake"></i> Age Calculator
+          </h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form action="" method="post" id="age-form">
+            {% csrf_token %}
+
+            <!-- Birth Date Input -->
+            <div class="mb-4">
+              <label for="birth_date" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-calendar-alt text-primary"></i> Your Birth Date
+              </label>
+              <input 
+                type="date" 
+                name="birth_date" 
+                id="birth_date" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ birth_date }}" 
+                required
+                max="{{ 'now'|date:'Y-m-d' }}"
+              >
+            </div>
+
+            <!-- Buttons -->
+            <div class="row g-3">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-calculator"></i> Calculate
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" 
+                        onclick="document.getElementById('age-form').reset(); 
+                                 document.querySelector('.result-card')?.remove();"
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-eraser"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Result -->
+            {% if age %}
+            <div class="mt-5 result-card p-4 rounded-4 border border-3 text-center
+                        {% if 'Error' in age %}border-danger bg-danger bg-opacity-10
+                        {% else %}border-success bg-success bg-opacity-10{% endif %}">
+
+              <h5 class="fw-bold mb-3">Your Age</h5>
+              
+              <div class="display-5 fw-bold 
+                          {% if 'Error' in age %}text-danger
+                          {% else %}text-success{% endif %}">
+                {{ age }}
+              </div>
+
+              <!-- Icon -->
+              <div class="mt-4">
+                {% if 'Error' not in age %}
+                <img src="https://img.icons8.com/emoji/96/party-popper.png" alt="Happy Birthday" width="80">
+                {% else %}
+                  <!-- After (working) -->
+<img src="https://img.icons8.com/fluency/96/cancel.png" alt="Happy Birthday" width="80" class="animate__animated animate__tada">
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Fun Fact -->
+      <div class="card mt-4 border-0 shadow-sm rounded-4 bg-light">
+        <div class="card-body text-center">
+          <p class="small text-muted mb-0">
+            Fun fact: The average human heart beats <strong>100,000 times</strong> per day!
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

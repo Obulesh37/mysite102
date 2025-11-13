@@ -1,0 +1,218 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- HERO SECTION -->
+ <div class="content-box text-center my-5 px-3 py-5 text-white"
+      style="box-shadow: 0 4px 15px rgba(59, 130, 246, 0.5); background-image: url(https://wallpaper.forfun.com/fetch/d1/d197f3d63e273b6f5c105412b799eae6.jpeg); background-repeat: no-repeat; background-size: cover; border-radius: 15px; min-width:80wh; max-width: 60wh; margin: auto;">
+    <h2 >Welcome to MySite</h2>
+    <p>This is your calculator tools hub with a clean blue theme and smooth layout.</p>
+  </div>
+<section class="text-white py-5" 
+         style="background: linear-gradient(rgba(79,70,229,.9), rgba(79,70,229,.95)), 
+                url('https://images.unsplash.com/photo-1509228628319-2d0b3d1e7c8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat;">
+  <div class="container text-center py-5">
+    <h1 class="display-3 fw-bold">Math Tools for Everyone</h1>
+    <p class="lead col-lg-8 mx-auto">
+      Simple, fast, and beautiful calculators built with Django.
+    </p>
+    <a href="/calculator/" class="btn btn-light btn-lg mt-3 px-5 rounded-pill shadow">
+      Get Started
+    </a>
+  </div>
+</section>
+
+<!-- TOOL CARDS -->
+<div class="container py-5">
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-5 justify-content-center">
+
+    <!-- Calculator -->
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+        <div class="position-absolute top-0 start-50 translate-middle-x">
+          <div class="bg-white p-3 rounded-circle shadow-lg">
+            <img src="https://img.icons8.com/fluency/64/calculator--v1.png" alt="Calculator" width="48">
+          </div>
+        </div>
+        <div class="card-body text-center pt-5">
+          <h5 class="card-title fw-bold text-dark">Simple Calculator</h5>
+          <p class="card-text text-muted small">Add, subtract, multiply, divide instantly.</p>
+          <a href="{% url 'calculator' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">Open</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Even/Odd -->
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+        <div class="position-absolute top-0 start-50 translate-middle-x">
+          <div class="bg-white p-3 rounded-circle shadow-lg">
+            <img src="https://img.icons8.com/fluency/64/toggle-on.png" alt="Even/Odd" width="48">
+          </div>
+        </div>
+        <div class="card-body text-center pt-5">
+          <h5 class="card-title fw-bold text-dark">Even or Odd</h5>
+          <p class="card-text text-muted small">Check parity in one click.</p>
+          <a href="{% url 'even_odd' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">Check Now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Factorial -->
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+        <div class="position-absolute top-0 start-50 translate-middle-x">
+          <div class="bg-white p-3 rounded-circle shadow-lg">
+            <img src="https://www.mathdoubts.com/cimgs/factorial/image.png" alt="Factorial" width="48">
+          </div>
+        </div>
+        <div class="card-body text-center pt-5">
+          <h5 class="card-title fw-bold text-dark">Factorial Calculator</h5>
+          <p class="card-text text-muted small">Compute n! for any positive integer.</p>
+          <a href="{% url 'factorial' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">Calculate</a>
+        </div>
+      </div>
+    </div>
+
+ <!-- Fibonacci Series -->
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+        <div class="position-absolute top-0 start-50 translate-middle-x">
+          <div class="bg-white p-3 rounded-circle shadow-lg">
+            <img src="https://png.pngtree.com/png-vector/20241227/ourlarge/pngtree-d-an-artistic-rendering-of-the-fibonacci-sequence-with-spirals-found-png-image_14908352.png" alt="Fibonacci" width="48">
+          </div>
+        </div>
+        <div class="card-body text-center pt-5">
+          <h5 class="card-title fw-bold text-dark">Fibonacci Calculator</h5>
+          <p class="card-text text-muted small">Compute Fibonacci for any positive integer.</p>
+          <a href="{% url 'fibonacci' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">Calculate</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+      <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+        <div class="position-absolute top-0 start-50 translate-middle-x">
+          <div class="bg-white p-3 rounded-circle shadow-lg">
+            <img src="https://static.vecteezy.com/system/resources/thumbnails/053/444/798/small/comprehensive-body-mass-index-bmi-meter-illustration-displaying-weight-categories-from-low-to-high-png.png" alt="BMI" width="48">
+          </div>
+        </div>
+        <div class="card-body text-center pt-5">
+          <h5 class="card-title fw-bold text-dark">BMI Calculator</h5>
+          <p class="card-text text-muted small">Calculate your Body Mass Index.</p>
+          <a href="{% url 'bmi' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">Calculate</a>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col">
+     <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://img.icons8.com/fluency/64/star.png" alt="Prime" width="48">
+      </div>
+    </div>
+    <div class="card-body text-center pt-5">
+      <h5 class="card-title fw-bold text-dark">Prime Number Checker</h5>
+      <p class="card-text text-muted small">Check if any number is prime in one click.</p>
+      <a href="{% url 'prime' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">
+        Check Now
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://img.icons8.com/fluency/64/birthday-cake.png" alt="Age" width="48">
+      </div>
+    </div>
+    <div class="card-body text-center pt-5">
+      <h5 class="card-title fw-bold text-dark">Age Calculator</h5>
+      <p class="card-text text-muted small">Find your exact age in years, months, and days.</p>
+      <a href="{% url 'age' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">
+        Calculate Now
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="col">
+  <div class="card h-100 border-0 shadow-lg rounded-4 overflow-hidden position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://img.icons8.com/fluency/64/money-bag.png" alt="Interest" width="48">
+      </div>
+    </div>
+    <div class="card-body text-center pt-5">
+      <h5 class="card-title fw-bold text-dark">Simple Interest</h5>
+      <p class="card-text text-muted small">Calculate SI = (P × R × T) / 100</p>
+      <a href="{% url 'simple_interest' %}" class="btn btn-primary mt-3 px-4 rounded-pill shadow-sm">
+        Calculate Now
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-4 mb-4">
+  <div class="card h-100 border-0 shadow-lg rounded-4 text-center p-4 position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://www.mozaweb.com/mozaApp/szorzotabla/szorzotabla_4k.png" alt="Table" width="48">
+      </div>
+    </div>
+    <div class="card-body pt-5">
+      <h5 class="card-title fw-bold">Table Generator</h5>
+      <p class="card-text text-muted small">Generate multiplication tables instantly</p>
+      <a href="{% url 'table' %}" class="btn btn-primary mt-2 px-4 rounded-pill shadow-sm">
+        Generate Table
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-4 mb-4">
+  <div class="card h-100 border-0 shadow-lg rounded-4 text-center p-4 position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://i.shgcdn.com/dcf14086-33ae-4303-aecc-6b2b74786da2/-/format/auto/-/preview/3000x3000/-/quality/lighter/" alt="Cube" width="48">
+      </div>
+    </div>
+    <div class="card-body pt-5">
+      <h5 class="card-title fw-bold">Cube Calculator</h5>
+      <p class="card-text text-muted small">Find n³ instantly</p>
+      <a href="{% url 'cube' %}" class="btn btn-primary mt-2 px-4 rounded-pill shadow-sm">
+        Calculate Cube
+      </a>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-4 mb-4">
+  <div class="card h-100 border-0 shadow-lg rounded-4 text-center p-4 position-relative pt-5">
+    <div class="position-absolute top-0 start-50 translate-middle-x">
+      <div class="bg-white p-3 rounded-circle shadow-lg">
+        <img src="https://img.freepik.com/premium-vector/number-2-icon-ranking-symbol-turquoise-gradient-square-star-rating-vector_797523-4169.jpg" alt="Square" width="48">
+      </div>
+    </div>
+    <div class="card-body pt-5">
+      <h5 class="card-title fw-bold">Square Calculator</h5>
+      <p class="card-text text-muted small">Find n² instantly</p>
+      <a href="{% url 'square' %}" class="btn btn-primary mt-2 px-4 rounded-pill shadow-sm">
+        Calculate Square
+      </a>
+    </div>
+  </div>
+</div>
+
+  </div>
+</div>
+{% endblock %}

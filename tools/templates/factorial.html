@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block title %}Factorial{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; min-height: 100vh;">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7 col-sm-10">
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold">Factorial Calculator</h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <label for="number" class="form-label fw-semibold">Enter a positive integer</label>
+              <input type="number" min="0" name="number" id="number"
+                     class="form-control form-control-lg rounded-3"
+                     value="{{ request.POST.number }}" placeholder="e.g. 5">
+            </div>
+
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg rounded-3 shadow-sm">Calculate</button>
+            </div>
+
+            {% if result is not None %}
+            <div class="mt-5">
+              <label class="form-label fw-semibold">Result</label>
+              <input type="text"
+                     class="form-control form-control-lg rounded-3 text-end fw-bold fs-3 bg-light border-success border-3 text-success"
+                     value="{{ result }}" readonly>
+              <!-- Success Image -->
+              <div class="text-center mt-4">
+                <img src="https://img.icons8.com/fluency/96/ok.png" 
+                     alt="Success" width="80" class="animate__animated animate__tada">
+              </div>
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

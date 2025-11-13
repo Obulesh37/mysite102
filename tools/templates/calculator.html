@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Calculator{% endblock %}
+
+{% block content %}
+<!-- ADDING BACKGROUND IMAGE HERE -->
+<div class="container-fluid p-4 p-md-5"
+     style="background: linear-gradient(rgba(79,70,229,.92), rgba(79,70,229,.97)), 
+            url('https://images.unsplash.com/photo-1509228628319-2d0b3d1e7c8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') 
+            center/cover no-repeat; 
+            min-height: 100vh;">
+  
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7 col-sm-10">
+
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold">Simple Django Calculator</h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form action="" method="post" id="calc-form">
+            {% csrf_token %}
+
+            <div class="mb-4">
+              <label for="num1_input" class="form-label fw-semibold">Value 1</label>
+              <input type="number" step="any" name="num1" id="num1_input"
+                     class="form-control form-control-lg rounded-3"
+                     value="{{ request.POST.num1 }}" required placeholder="Enter first number">
+            </div>
+
+            <div class="mb-4">
+              <label for="operation_select" class="form-label fw-semibold">Select Operator</label>
+              <select name="operation" id="operation_select" class="form-select form-select-lg rounded-3">
+                <option value="+" {% if request.POST.operation == '+' %}selected{% endif %}>Addition (+)</option>
+                <option value="-" {% if request.POST.operation == '-' %}selected{% endif %}>Subtraction (-)</option>
+                <option value="*" {% if request.POST.operation == '*' %}selected{% endif %}>Multiplication (*)</option>
+                <option value="/" {% if request.POST.operation == '/' %}selected{% endif %}>Division (/)</option>
+              </select>
+            </div>
+
+            <div class="mb-4">
+              <label for="num2_input" class="form-label fw-semibold">Value 2</label>
+              <input type="number" step="any" name="num2" id="num2_input"
+                     class="form-control form-control-lg rounded-3"
+                     value="{{ request.POST.num2 }}" required placeholder="Enter second number">
+            </div>
+
+            <div class="row g-3 mt-2">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm">Calculate</button>
+              </div>
+              <div class="col-6">
+                <button type="button" onclick="document.getElementById('calc-form').reset();"
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3">Clear</button>
+              </div>
+            </div>
+
+            {% if result is not None %}
+            <div class="mt-5">
+              <label for="result_output" class="form-label fw-semibold">Output</label>
+              <input type="text" id="result_output"
+                     class="form-control form-control-lg rounded-3 text-end fw-bold fs-3 bg-light border-success border-3 text-success"
+                     value="{{ result }}" readonly>
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

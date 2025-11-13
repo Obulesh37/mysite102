@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Cube Calculator{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: linear-gradient(rgba(79,70,229,.92), rgba(79,70,229,.97)), 
+            url('https://images.unsplash.com/photo-1509228628319-2d0b3d1e7c8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; 
+            min-height: 100vh;">
+  
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+
+      <!-- Cube Calculator Card -->
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-cube"></i> Cube Calculator
+          </h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form method="post">
+            {% csrf_token %}
+
+            <!-- Number Input -->
+            <div class="mb-4">
+              <label for="number" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-hashtag text-primary"></i> Enter Number
+              </label>
+              <input 
+                type="number" 
+                step="any" 
+                name="number" 
+                id="number" 
+                class="form-control form-control-lg rounded-3 text-center" 
+                value="{{ number|default:'' }}" 
+                required 
+                placeholder="e.g. 5"
+                autofocus
+              >
+            </div>
+
+            <!-- Buttons -->
+            <div class="row g-3">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-calculator"></i> Calculate Cube
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" 
+                        onclick="this.closest('form').reset();"
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-eraser"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Result -->
+            {% if result %}
+            <div class="mt-5 result-card p-4 rounded-4 border border-3 
+                        {% if result.error %}border-danger bg-danger bg-opacity-10
+                        {% else %}border-success bg-success bg-opacity-10{% endif %}">
+
+              {% if result.error %}
+                <div class="alert alert-danger text-center mb-0">
+                  <strong>Error:</strong> {{ result.error }}
+                </div>
+              {% else %}
+                <h5 class="fw-bold mb-3 text-center text-success">
+                  Cube of {{ result.number }}
+                </h5>
+
+                <div class="text-center">
+                  <div class="display-4 fw-bold text-primary">
+                    {{ result.cube }}
+                  </div>
+                  <div class="mt-3 p-3 bg-light bg-opacity-75 rounded-3 d-inline-block">
+                    <code class="fs-6">{{ result.formula }}</code>
+                  </div>
+                </div>
+
+                <!-- Fun Fact -->
+                <div class="mt-4 text-center">
+                  <small class="text-muted">
+                    {% if result.number > 0 %}
+                      {{ result.number }} × {{ result.number }} × {{ result.number }} = {{ result.cube }}
+                    {% else %}
+                      Negative numbers also work: (-2)³ = -8
+                    {% endif %}
+                  </small>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Info Card -->
+      <div class="card mt-4 border-0 shadow-sm rounded-4 bg-light">
+        <div class="card-body text-center">
+          <p class="small text-muted mb-0">
+            <strong>Formula:</strong> Cube = n × n × n
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

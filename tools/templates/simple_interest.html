@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Simple Interest Calculator{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: linear-gradient(rgba(79,70,229,.92), rgba(79,70,229,.97)), 
+            url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; 
+            min-height: 100vh;">
+  
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+
+      <!-- Simple Interest Calculator Card -->
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-coins"></i> Simple Interest Calculator
+          </h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form method="post">
+            {% csrf_token %}
+
+            <!-- Principal Amount -->
+            <div class="mb-4">
+              <label for="principal" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-dollar-sign text-primary"></i> Principal Amount
+              </label>
+              <input 
+                type="number" 
+                step="any" 
+                name="principal" 
+                id="principal" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ principal|default:'' }}" 
+                required 
+                min="0.01"
+                placeholder="e.g. 1000"
+              >
+            </div>
+
+            <!-- Rate of Interest -->
+            <div class="mb-4">
+              <label for="rate" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-percentage text-primary"></i> Rate of Interest (% per year)
+              </label>
+              <input 
+                type="number" 
+                step="any" 
+                name="rate" 
+                id="rate" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ rate|default:'' }}" 
+                required 
+                min="0.01"
+                max="100"
+                placeholder="e.g. 5"
+              >
+            </div>
+
+            <!-- Time Period -->
+            <div class="mb-4">
+              <label for="time" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-clock text-primary"></i> Time Period (years)
+              </label>
+              <input 
+                type="number" 
+                step="any" 
+                name="time" 
+                id="time" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ time|default:'' }}" 
+                required 
+                min="0.01"
+                placeholder="e.g. 3"
+              >
+            </div>
+
+            <!-- Buttons -->
+            <div class="row g-3">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-calculator"></i> Calculate
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" 
+                        onclick="this.closest('form').reset(); 
+                                 this.closest('form').querySelectorAll('input')[0].focus();"
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-eraser"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Results -->
+            {% if result %}
+            <div class="mt-5 result-card p-4 rounded-4 border border-3 
+                        {% if result.error %}border-danger bg-danger bg-opacity-10
+                        {% else %}border-success bg-success bg-opacity-10{% endif %}">
+
+              {% if result.error %}
+                <div class="alert alert-danger text-center mb-0">
+                  <strong>Error:</strong> {{ result.error }}
+                </div>
+              {% else %}
+                <h5 class="fw-bold mb-4 text-center">Results</h5>
+                
+                <div class="row g-3 text-center">
+                  <div class="col-md-4">
+                    <div class="p-3 bg-white bg-opacity-75 rounded-3 shadow-sm">
+                      <div class="text-muted small">Simple Interest</div>
+                      <div class="fs-4 fw-bold text-success">${{ result.si }}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="p-3 bg-white bg-opacity-75 rounded-3 shadow-sm">
+                      <div class="text-muted small">Total Amount</div>
+                      <div class="fs-4 fw-bold text-primary">${{ result.total }}</div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="p-3 bg-white bg-opacity-75 rounded-3 shadow-sm">
+                      <div class="text-muted small">Formula</div>
+                      <div class="small">{{ result.formula }}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-4 p-3 bg-light bg-opacity-75 rounded-3">
+                  <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <span><strong>Principal:</strong> ${{ principal }}</span>
+                    <span><strong>Rate:</strong> {{ rate }}%</span>
+                    <span><strong>Time:</strong> {{ time }} year{{ time|pluralize }}</span>
+                  </div>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Formula Card -->
+      <div class="card mt-4 border-0 shadow-sm rounded-4 bg-light">
+        <div class="card-body text-center">
+          <p class="small text-muted mb-0">
+            <strong>Formula:</strong> SI = (P x R x T) / 100
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

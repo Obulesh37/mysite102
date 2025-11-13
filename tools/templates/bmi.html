@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}BMI Calculator{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; min-height: 100vh;">
+  <div class="row justify-content-center">
+    <div class="col-lg-5 col-md-7 col-sm-10">
+        <!-- BMI Reference Table (Optional) -->
+      <div class="card mt-4 border-0 shadow-sm rounded-4 bg-light">
+        <div class="card-body">
+          <h6 class="fw-bold text-center mb-3">BMI Categories</h6>
+          <table class="table table-sm table-bordered text-center">
+            <thead class="table-light">
+              <tr>
+                <th>BMI</th>
+                <th>Category</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>&lt; 18.5</td><td class="text-warning fw-semibold">Underweight</td></tr>
+              <tr><td>18.5 – 24.9</td><td class="text-success fw-semibold">Normal</td></tr>
+              <tr><td>25 – 29.9</td><td class="text-orange fw-semibold">Overweight</td></tr>
+              <tr><td>≥ 30</td><td class="text-danger fw-semibold">Obese</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <br>
+
+      <!-- BMI Card -->
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-weight"></i> BMI Calculator
+          </h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form method="post" id="bmi-form">
+            {% csrf_token %}
+
+            <!-- Weight Input -->
+            <div class="mb-4">
+              <label for="weight" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-weight-hanging text-primary"></i> Weight (kg)
+              </label>
+              <input 
+                type="number" 
+                step="0.1" 
+                min="1" 
+                class="form-control form-control-lg rounded-3" 
+                id="weight" 
+                name="weight" 
+                value="{{ request.POST.weight }}" 
+                required 
+                placeholder="e.g. 70.5"
+              >
+            </div>
+
+            <!-- Height Input -->
+            <div class="mb-4">
+              <label for="height" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-ruler-vertical text-primary"></i> Height (cm)
+              </label>
+              <input 
+                type="number" 
+                step="0.1" 
+                min="50" 
+                class="form-control form-control-lg rounded-3" 
+                id="height" 
+                name="height" 
+                value="{{ request.POST.height }}" 
+                required 
+                placeholder="e.g. 175"
+              >
+            </div>
+
+            <!-- Buttons -->
+            <div class="row g-3">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm">
+                  <i class="fas fa-calculator"></i> Calculate
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" onclick="document.getElementById('bmi-form').reset();" 
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3">
+                  <i class="fas fa-eraser"></i> Clear
+                </button>
+              </div>
+            </div>
+
+            <!-- Result -->
+            {% if bmi %}
+            <div class="mt-5 p-4 rounded-4 border border-3 text-center
+                        {% if category == 'Underweight' %}border-warning bg-warning bg-opacity-10
+                        {% elif category == 'Normal' %}border-success bg-success bg-opacity-10
+                        {% elif category == 'Overweight' %}border-orange bg-orange bg-opacity-10
+                        {% else %}border-danger bg-danger bg-opacity-10{% endif %}">
+              
+              <h5 class="fw-bold mb-3">Your BMI Result</h5>
+              
+              <div class="display-5 fw-bold text-primary"><b>{{ bmi }}</b></div>
+              
+              <p class="lead mt-3 mb-0">
+                <span class="badge 
+                  {% if category == 'Underweight' %}bg-warning text-dark
+                  {% elif category == 'Normal' %}bg-success
+                  {% elif category == 'Overweight' %}bg-orange text-white
+                  {% else %}bg-danger{% endif %} 
+                  fs-6 px-3 py-2">
+                  {{ category }}
+                </span>
+              </p>
+
+              <!-- Success Animation -->
+              <div class="mt-4">
+                <img src="https://img.icons8.com/fluency/96/ok.png" 
+                     alt="Success" width="70" class="animate__animated animate__tada">
+              </div>
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      
+
+    </div>
+  </div>
+</div>
+{% endblock %}

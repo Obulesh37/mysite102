@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Multiplication Table Generator{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-4 p-md-5"
+     style="background: linear-gradient(rgba(79,70,229,.92), rgba(79,70,229,.97)), 
+            url('https://images.unsplash.com/photo-1509228628319-2d0b3d1e7c8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') center/cover no-repeat; 
+            min-height: 100vh;">
+  
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8 col-sm-10">
+
+      <!-- Table Generator Card -->
+      <div class="card shadow-lg border-0 rounded-4 overflow-hidden bg-white bg-opacity-95">
+        <div class="card-header bg-primary text-white text-center py-4">
+          <h4 class="mb-0 fw-bold d-flex align-items-center justify-content-center gap-2">
+            <i class="fas fa-table"></i> Table Generator
+          </h4>
+        </div>
+
+        <div class="card-body p-4 p-lg-5">
+          <form method="post">
+            {% csrf_token %}
+
+            <!-- Number Input -->
+            <div class="mb-4">
+              <label for="number" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-hashtag text-primary"></i> Number
+              </label>
+              <input 
+                type="number" 
+                name="number" 
+                id="number" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ number|default:'' }}" 
+                required 
+                min="1" 
+                max="1000"
+                placeholder="e.g. 5"
+              >
+            </div>
+
+            <!-- Rows Input -->
+            <div class="mb-4">
+              <label for="rows" class="form-label fw-semibold d-flex align-items-center gap-2">
+                <i class="fas fa-list-ol text-primary"></i> Number of Rows
+              </label>
+              <input 
+                type="number" 
+                name="rows" 
+                id="rows" 
+                class="form-control form-control-lg rounded-3" 
+                value="{{ rows|default:'10' }}" 
+                required 
+                min="1" 
+                max="100"
+                placeholder="e.g. 10"
+              >
+            </div>
+
+            <!-- Buttons -->
+            <div class="row g-3">
+              <div class="col-6">
+                <button type="submit" class="btn btn-success btn-lg w-100 rounded-3 shadow-sm d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-table"></i> Generate Table
+                </button>
+              </div>
+              <div class="col-6">
+                <button type="button" 
+                        onclick="this.closest('form').reset(); 
+                                 document.getElementById('rows').value = '10';"
+                        class="btn btn-outline-secondary btn-lg w-100 rounded-3 d-flex align-items-center justify-content-center gap-2">
+                  <i class="fas fa-eraser"></i> Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- Result Table -->
+            {% if table %}
+            <div class="mt-5 result-card p-4 rounded-4 border border-3 
+                        {% if table.error %}border-danger bg-danger bg-opacity-10
+                        {% else %}border-success bg-success bg-opacity-10{% endif %}">
+
+              {% if table.error %}
+                <div class="alert alert-danger text-center mb-0">
+                  <strong>Error:</strong> {{ table.error }}
+                </div>
+              {% else %}
+                <h5 class="fw-bold mb-3 text-center text-success">
+                  Multiplication Table of {{ table.number }}
+                </h5>
+
+                <div class="table-responsive">
+                  <table class="table table-striped table-hover align-middle">
+                    <thead class="table-primary">
+                      <tr>
+                        <th class="text-center">×</th>
+                        <th class="text-center">Result</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for row in table.data %}
+                      <tr>
+                        <td class="text-center fw-bold">
+                          {{ table.number }} × {{ row.multiplier }}
+                        </td>
+                        <td class="text-center fs-5 fw-bold text-primary">
+                          {{ row.result }}
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="text-center mt-3">
+                  <small class="text-muted">
+                    {{ table.rows }} row{{ table.rows|pluralize }} generated
+                  </small>
+                </div>
+              {% endif %}
+            </div>
+            {% endif %}
+          </form>
+        </div>
+      </div>
+
+      <!-- Info Card -->
+      <div class="card mt-4 border-0 shadow-sm rounded-4 bg-light">
+        <div class="card-body text-center">
+          <p class="small text-muted mb-0">
+            <strong>Example:</strong> 5 × 1 = 5, 5 × 2 = 10, ...
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}
