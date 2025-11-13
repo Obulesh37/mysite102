@@ -1,16 +1,2 @@
-# 1. Create a virtualenv (optional but recommended)
-  # Windows: venv\Scripts\activate
-
-# 2. Install Django
-pip install django
-
-# 3. Create the project (if you start from scratch)
-django-admin startproject mysite .
-python manage.py startapp tools
-
-# 4. Copy the files above into the structure shown
-
-# 5. Migrate & run
-python manage.py migrate
-python manage.py runserver
-
+pip install gunicorn uvicorn
+pip freeze
