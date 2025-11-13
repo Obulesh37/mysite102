@@ -1,2 +1,9 @@
-pip install gunicorn uvicorn
-pip freeze
+# Core Framework
+Django==4.2.6
+
+# Production Server (ASGI/WSGI)
+gunicorn==21.2.0
+uvicorn[standard]==0.27.0
+
+# Static Files Management
+whitenoise==6.6.0
