@@ -9,6 +9,18 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+# settings.py
+
+# ... other settings
+
+# Add the specific domain where your app is hosted
+CSRF_TRUSTED_ORIGINS = [
+    'https://mysite102-1.onrender.com',
+    # Add any other domains that might submit POST requests to your app
+]
+
+# ... other settings
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -48,4 +60,5 @@ TEMPLATES = [
 ]
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [BASE_DIR / 'static']
