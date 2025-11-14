@@ -1,17 +1,24 @@
 import os
-from pathlib import Path
+import dj_database_url
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'django-insecure-change-me-in-production'
-
-DEBUG = True
-
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['*']
 
-# settings.py
+# Database – use external Postgres in production
+DATABASES = {
+    'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)
+}
 
-# ... other settings
+# Static files with Whitenoise (works perfectly on Vercel)
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # ← important, put after SecurityMiddleware
+    # ... rest of your middleware
+]
 
 # Add the specific domain where your app is hosted
 CSRF_TRUSTED_ORIGINS = [
@@ -64,4 +71,5 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
