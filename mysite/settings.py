@@ -25,3 +25,4 @@ MIDDLEWARE = [
 
 # Optional: Compress static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
