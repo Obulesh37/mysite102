@@ -1,21 +1,27 @@
 import os
-import dj_database_url
 
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = ['*']
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
 
-# Database – use external Postgres in production
-DATABASES = {
-    'default': dj_database_url.config(default='sqlite:///db.sqlite3', conn_max_age=600)
-}
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    '.vercel.app',           # ← Important for Vercel
+    'yourdomain.com',        # ← add your custom domain later
+]
 
-# Static files with Whitenoise (works perfectly on Vercel)
+# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+# Whitenoise (serves static files in production)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',   # ← important, put after SecurityMiddleware
+    'whitenoise.middleware.WhiteNoiseMiddleware',   # ← Add this line (2nd position)
+    'django.contrib.sessions.middleware.SessionMiddleware',
     # ... rest of your middleware
 ]
+
+# Optional: Compress static files
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
