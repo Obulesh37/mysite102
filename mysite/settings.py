@@ -26,3 +26,7 @@ MIDDLEWARE = [
 # Optional: Compress static files
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Vercel auto-collectstatic
+if os.environ.get('DJANGO_COLLECT_STATIC'):
+    import subprocess
+    subprocess.call(['python', 'manage.py', 'collectstatic', '--noinput'])
