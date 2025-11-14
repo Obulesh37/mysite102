@@ -1,9 +1,5 @@
-# Core Framework
-Django==4.2.6
-
-# Production Server (ASGI/WSGI)
-gunicorn==21.2.0
-uvicorn[standard]==0.27.0
-
-# Static Files Management
-whitenoise==6.6.0
+Django>=4.2
+whitenoise
+dj-database-url
+psycopg2-binary  # or leave out if you use Vercel Postgres / SQLite for testing only
+gunicorn          # optional but safe
