@@ -1,8 +1,14 @@
 {
+  "version": 2,
   "builds": [
     {
-      "src": "mysite102/wsgi.py",
-      "use": "@vercel/python"
+      "src": "vercel_deploy.py",
+      "use": "@vercel/python",
+      "config": { "maxLambdaSize": "50mb" }
+    },
+    {
+      "src": "static/**/*",
+      "use": "@vercel/static"
     }
   ],
   "routes": [
@@ -12,7 +18,11 @@
     },
     {
       "src": "/(.*)",
-      "dest": "mysite102/wsgi.py"
+      "dest": "vercel_deploy.py"
     }
-  ]
+  ],
+  "env": {
+    "DJANGO_SETTINGS_MODULE": "project_name.settings",
+    "PYTHON_VERSION": "3.11"
+  }
 }
